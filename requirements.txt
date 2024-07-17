@@ -1,0 +1,2 @@
+vanna[chromadb,gemini,bigquery]
+db-dtypes

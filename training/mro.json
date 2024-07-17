@@ -1,0 +1,28 @@
+[
+    {
+            "question":"liste os materiais com parafuso na descricao, traga tambem a descricao do material",
+            "sql":"SELECT MaterialsMD.MaterialNumber_MATNR, MaterialsMD.MaterialText_MAKTX FROM `{project_id}.{dataset}.MaterialsMD` AS MaterialsMD WHERE UPPER(MaterialsMD.MaterialText_MAKTX) LIKE '%PARAFUSO%'"
+    },
+    {
+            "question":"quais os materiais marcados para eliminacao, traga a descricao do material tambem",
+            "sql":"SELECT MaterialsMD.MaterialNumber_MATNR, MaterialsMD.MaterialText_MAKTX FROM `{project_id}.{dataset}.MaterialsMD` AS MaterialsMD WHERE UPPER(MaterialsMD.FlagMaterialforDeletion_LVORM) LIKE '%X%'"
+    },
+    {
+            "question":"liste os materiais marcados para eliminacao que tem estoque maior que 0, trazer tambem a descricao do material e quantidade",
+            "sql":"SELECT MaterialsMD.MaterialNumber_MATNR, MaterialsMD.MaterialText_MAKTX, Stock_NonValuated.ValuatedUnrestrictedUseStock_LABST FROM `{project_id}.{dataset}.MaterialsMD` AS MaterialsMD INNER JOIN `{project_id}.{dataset}.Stock_NonValuated` AS Stock_NonValuated ON MaterialsMD.MaterialNumber_MATNR = Stock_NonValuated.MaterialNumber_MATNR WHERE MaterialsMD.FlagMaterialforDeletion_LVORM = 'X' AND Stock_NonValuated.ValuatedUnrestrictedUseStock_LABST > 0;"
+    },
+    {
+    
+            "question":"liste os materiais tem estoque maior que 50, trazer tambem a descricao do material, quantidade e a planta",
+            "sql":"SELECT t1.MaterialNumber_MATNR, t1.MaterialText_MAKTX, t2.ValuatedUnrestrictedUseStock_LABST, t2.Plant_WERKS FROM `{project_id}.{dataset}.MaterialsMD` AS t1 INNER JOIN `{project_id}.{dataset}.Stock_NonValuated` AS t2 ON t1.MaterialNumber_MATNR = t2.MaterialNumber_MATNR WHERE t2.ValuatedUnrestrictedUseStock_LABST > 50"
+    },
+    {  
+            "question":"quero a descrição, quantidade, deposito, centro do material 25574307",
+            "sql":"SELECT t1.MaterialDescriptionForMatchcodes_MAKTG, t2.ValuatedUnrestrictedUseStock_LABST, t2.StorageLocation_LGORT, t2.Plant_WERKS FROM `{project_id}.{dataset}.MaterialsMD` AS t1 INNER JOIN `{project_id}.{dataset}.Stock_NonValuated` AS t2 ON t1.MaterialNumber_MATNR = t2.MaterialNumber_MATNR WHERE UPPER(t1.MaterialNumber_MATNR) LIKE '%25574307%'" 
+    },
+    {
+            "question":"quero a descrição e código dos materiais com ni 28183543 ou 28183544 ou 28183545",
+            "sql":"SELECT MaterialsMD.MaterialNumber_MATNR, MaterialsMD.MaterialText_MAKTX FROM `{project_id}.{dataset}.MaterialsMD` AS MaterialsMD WHERE UPPER(MaterialsMD.MaterialNumber_MATNR) LIKE ANY('%28183543%', '%28183544%', '%28183545%')"
+    }        
+]
+    
